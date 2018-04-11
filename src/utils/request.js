@@ -24,7 +24,18 @@ service.interceptors.request.use(config => {
 
 // respone interceptor
 service.interceptors.response.use(
-  response => response,
+  response => {
+    if (response.data.error_code === 0) {
+      return response.data.data
+    } else {
+      Message({
+        message: response.data.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return Promise.reject(response.data.message)
+    }
+  },
   /**
   * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
   * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中

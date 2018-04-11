@@ -1,5 +1,5 @@
 <template>
-  <div class="analysisContainer">
+  <div class="analysis-container-add">
     <el-container v-if="isEmpty">
       <el-main>
         创建项目
@@ -106,6 +106,10 @@ export default {
 </script>
 
 <style lang="scss">
-  .analysisContainer {
+  .analysis-container-add {
+    height: 100%;
+    .el-header {
+      box-sizing: border-box;
+    }
   }
 </style>

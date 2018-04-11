@@ -11,7 +11,7 @@ export const constantRouterMap = [
   { path: '/login', component: _import('login/index') },
   { path: '/404', component: _import('errorPage/404') },
   { path: '/401', component: _import('errorPage/401') },
-  { path: '/', redirect: '/homePage/analysisPage/dashboard' },
+  { path: '/', redirect: '/login' },
   {
     path: '/homePage',
     component: Layout,

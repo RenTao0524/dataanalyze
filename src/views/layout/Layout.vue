@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="layout-container">
     <el-header>
       <Headerbar></Headerbar>
     </el-header>
@@ -19,3 +19,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .layout-container {
+    .el-header {
+      height: 10%!important;
+    }
+    .el-main {
+      height: 90%;
+    }
+  }
+</style>

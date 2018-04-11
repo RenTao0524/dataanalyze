@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: '/homePage/analysisPage/dashboard' })
     }
   },
   destroyed() {
@@ -41,12 +41,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-$bg:#d9dbde;
-
-/* reset element-ui css */
 .login-container {
   height: 100%;
-  background-color: $bg;
   .el-form {
     position: absolute;
     left: 40%;
