@@ -8,13 +8,16 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index') },
-  { path: '/404', component: _import('errorPage/404') },
-  { path: '/', redirect: '/login' },
+  { path: '/loginPage', component: _import('login/index') },
+  { path: '/', redirect: '/loginPage' },
   {
     path: '/homePage',
     component: Layout,
     children: [
+      {
+        path: '',
+        component: _import('defaultHomePage/index')
+      },
       {
         path: 'analysisPage',
         component: _import('analysisPage/analysisPageLayout'),
@@ -39,7 +42,7 @@ export const constantRouterMap = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', component: _import('errorPage/404') }
 ]
 
 export default new Router({

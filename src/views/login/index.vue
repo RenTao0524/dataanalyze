@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$router.push({ path: '/homePage/analysisPage/dashboard' })
+      this.$router.push({ path: '/homePage' })
     }
   },
   destroyed() {
