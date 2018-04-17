@@ -1,25 +1,12 @@
 <template>
-  <div class="analysis-container-add">
-    <el-container v-if="isEmpty">
-      <el-main>
-        创建项目
-        <br>
-        <svg-icon icon-class="add" @click.native="handleCreate" />
-      </el-main>
-    </el-container>
-
-    <el-container v-else>
-      <el-header>
-        <el-menu :default-active="activeIndex" mode="horizontal" router>
-          <el-menu-item index="/homePage/analysisPage/dashboard">分析看板</el-menu-item>
-          <el-menu-item index="/homePage/analysisPage/statement">分析报表</el-menu-item>
-          <el-menu-item index="/homePage/analysisPage/customer">客户分群</el-menu-item>
-        </el-menu>
-      </el-header>
-      <el-main>
-        <router-view />
-      </el-main>
-    </el-container>
+  <div class="analysis-container">
+    <el-menu default-active="/homePage/analysisPage/dashboard" mode="horizontal" class="main_nav" router>
+      <el-menu-item index="/homePage/analysisPage/dashboard">分析看板</el-menu-item>
+      <el-menu-item index="/homePage/analysisPage/statement">分析报表</el-menu-item>
+      <el-menu-item index="/homePage/analysisPage/customer">客户分群</el-menu-item>
+    </el-menu>
+  
+    <router-view style="height: 94%;" />
 
     <el-dialog title="创建项目" :visible.sync="dialogFormVisible">
       <el-form :model="form">
@@ -106,10 +93,26 @@ export default {
 </script>
 
 <style lang="scss">
-  .analysis-container-add {
-    height: 100%;
-    .el-header {
+  .analysis-container {
+    height: 92%;
+    .el-menu.main_nav {
+      height: 6%;
+      width: 100%;
+      padding: 0 35%;
       box-sizing: border-box;
+      display: flex;
+      .el-menu-item {
+        padding: 0;
+        text-align: center;
+        height: 100%;
+        flex: 1;
+        font-size: 0.8125rem;
+        line-height: 2.69;
+      }
+      .is-active {
+        color: #29B1EC;
+        border-bottom: 2px solid #29B1EC;
+      }
     }
   }
 </style>

@@ -1,12 +1,8 @@
 <template>
-  <el-container class="layout-container">
-    <el-header>
-      <Headerbar></Headerbar>
-    </el-header>
-    <el-main>
-      <router-view/>
-    </el-main>
-  </el-container>
+  <div class="layout-container">
+    <Headerbar />
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -20,13 +16,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .layout-container {
-    .el-header {
-      height: 10%!important;
-    }
-    .el-main {
-      height: 90%;
-    }
+    height: 100%;
   }
 </style>

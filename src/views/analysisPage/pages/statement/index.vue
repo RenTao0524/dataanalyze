@@ -17,14 +17,19 @@ export default {
     headerBar,
     filterPart,
     bottomPart
+  },
+  beforeRouteEnter: (to, from, next) => {
+    next(vm => {
+      vm.$store.dispatch('SET_INDICATOR')
+      vm.$store.dispatch('SET_EDIT_OPTION_LIST')
+    })
   }
 }
 </script>
 
 <style lang="scss">
   .statement-container {
-    height: 100%;
-    padding: 20px;
+    padding: 0.5% 1%;
     box-sizing: border-box;
   }
 </style>

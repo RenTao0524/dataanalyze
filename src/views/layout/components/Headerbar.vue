@@ -21,11 +21,11 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss">
   .layout-headerBar {
-    height: 100%;
-    border-bottom: 2px solid #afb1b3;
-    box-sizing: border-box; 
+    height: 8%;
+    padding: 0 2%;
+    box-sizing: border-box;
     display: flex;
   }
 </style>

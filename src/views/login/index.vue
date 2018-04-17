@@ -1,16 +1,10 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm">
-      <label>chimarea</label>
-      <el-form-item>
-        <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="loginForm.password" type="password" placeholder="密码"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="handleLogin" type="primary">立即登录</el-button>
-      </el-form-item>
+      <img src="../../assets/images/logo.png" alt="logo">
+      <el-input v-model="loginForm.username" class="userName" placeholder="用户名" clearable></el-input>
+      <el-input v-model="loginForm.password" class="passWord" type="password" placeholder="密码"></el-input>
+      <el-button @click="handleLogin">立即登录</el-button>
     </el-form>
   </div>
 </template>
@@ -31,7 +25,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$router.push({ path: '/homePage' })
+      this.$router.push({ path: '/homePage/analysisPage/dashboard' })
     }
   },
   destroyed() {
@@ -44,20 +38,47 @@ export default {
 .login-container {
   height: 100%;
   .el-form {
+    text-align: center;
     position: absolute;
+    top: 25%;
     left: 40%;
-    top: 35%;
     width: 20%;
-    height: 30%;
-    label {
-      width: 100%;
-      display: inline-block;
-      text-align: center;
-      color: #409EFF;
-      font-size: 1rem;
+    img {
+      height: 1.6rem;
+      width: auto;
+    }
+    .el-input {
+      input {
+        font-size: 0.75rem;
+        line-height: 3;
+        height: 3em;
+        color: #555555;
+      }
+    }
+    .el-input.is-active .el-input__inner, .el-input__inner:focus {
+      border-color: #dcdfe6;
+      outline: 0;
+    }
+    .userName {
+      margin-top: 4rem; 
+    }
+    .passWord {
+      input {
+        border-top: none;
+      }
     }
     .el-button {
+      margin-top: 0.75rem;
       width: 100%;
+      border: none;
+      background-color: #29b1ec;
+      padding: 0;
+      span {
+        font-size: 0.75rem;
+        color: #ffffff;
+        display: inline-block;
+        line-height: 3;
+      }
     }
   }
 }

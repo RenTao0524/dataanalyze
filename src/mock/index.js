@@ -1,10 +1,9 @@
 import Mock from 'mockjs'
 import loginAPI from './login'
-import articleAPI from './article'
-import remoteSearchAPI from './remoteSearch'
-import transactionAPI from './transaction'
 import projectSettingsAPI from './projectSettings'
 import dashBoardAPI from './dashBoard'
+// 分析报表
+import analysisReportAPI from './analysisReport'
 // 客户分群
 import customerGroupAPI from './customerGroup'
 
@@ -16,19 +15,6 @@ Mock.setup({
 Mock.mock(/\/login\/login/, 'post', loginAPI.loginByUsername)
 Mock.mock(/\/login\/logout/, 'post', loginAPI.logout)
 Mock.mock(/\/user\/info\.*/, 'get', loginAPI.getUserInfo)
-
-// 文章相关
-Mock.mock(/\/article\/list/, 'get', articleAPI.getList)
-Mock.mock(/\/article\/detail/, 'get', articleAPI.getArticle)
-Mock.mock(/\/article\/pv/, 'get', articleAPI.getPv)
-Mock.mock(/\/article\/create/, 'post', articleAPI.createArticle)
-Mock.mock(/\/article\/update/, 'post', articleAPI.updateArticle)
-
-// 搜索相关
-Mock.mock(/\/search\/user/, 'get', remoteSearchAPI.searchUser)
-
-// 账单相关
-Mock.mock(/\/transaction\/list/, 'get', transactionAPI.getList)
 
 // 项目设置相关
 // 获取项目列表
@@ -47,8 +33,14 @@ Mock.mock(/\/project\/[0-9]{1,2}\/detail/, 'get', projectSettingsAPI.getProjectD
 // 获取数据源的列表
 Mock.mock(/\/datasource\/list/, 'get', projectSettingsAPI.getDatasourceList)
 
-// 报表分析
+// 分析看板
 Mock.mock(/\/project\/[0-9]{1,2}\/analysis\/folder\/list/, 'get', dashBoardAPI.getAnalysisFolderList)
+
+// 分析报表相关
+// 获取报表编辑中指标信息
+Mock.mock(/\/project\/[0-9]{1,2}\/analysis\/indicator/, 'get', analysisReportAPI.getAnalysisIndicator)
+// 获取分析编辑页面维度与筛选条件选项信息
+Mock.mock(/\/project\/[0-9]{1,2}\/analysis\/edit_option_list/, 'get', analysisReportAPI.getAnalysisEdit_option_list)
 
 // 客户分群相关
 // 查看用户分群定义列表

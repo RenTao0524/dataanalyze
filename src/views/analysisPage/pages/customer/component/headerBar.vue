@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div>
-      <label>当前分群名称：{{clusteringName}}</label>
-    </div>
+  <div class="customer-headerBar">
+    <label>当前分群名称：{{clusteringName}}</label>
   </div>
 </template>
 
@@ -16,3 +14,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .customer-headerBar {
+    height: 7.39%;
+    background-color: #ffffff;
+  }
+</style>

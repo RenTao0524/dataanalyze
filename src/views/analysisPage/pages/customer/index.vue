@@ -1,30 +1,22 @@
 <template>
-  <el-container class="customer-container">
-    <el-aside>
-      <side-bar></side-bar>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <header-bar />
-      </el-header>
-      <el-main>
-        <main-part />
-      </el-main>
-    </el-container>
-  </el-container>
+  <div class="customer-container">
+    <side-bar/>
+    <div class="customer-main-view">
+      <header-bar />
+      <router-view style="height: 92.61%;"/>
+    </div>
+  </div>
 </template>
 
 <script>
 import sideBar from './component/sideBar'
 import headerBar from './component/headerBar'
-import mainPart from './component/mainPart'
 
 export default {
   name: 'customer',
   components: {
     sideBar,
-    headerBar,
-    mainPart
+    headerBar
   }
 }
 </script>
@@ -32,9 +24,12 @@ export default {
 <style lang="scss">
   .customer-container {
     height: 100%;
-    .el-aside {
+    display: flex;
+    .customer-main-view {
+      width: 81.67%;
       height: 100%;
-      width: 20%!important;
+      padding: 1%;
+      box-sizing: border-box;
     }
   }
 </style>

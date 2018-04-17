@@ -1,7 +1,7 @@
 <template>
   <div class="headerLeft"> 
-    <el-dropdown @visible-change="handleUnfold" @command="handleCommand" trigger="click">
-      <span>{{prjName}}
+    <el-dropdown trigger="click">
+      <span>{{projectChecked.prjName}}
         <svg-icon icon-class="open" />
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -9,44 +9,33 @@
           <el-input placeholder="搜索" suffix-icon="el-icon-search" style="width: 200px;">
           </el-input>
         </el-dropdown-item>
-        <el-dropdown-item v-for="item in dropdownList" :key="item.prjId" :command="item.prjName">{{item.prjName}}</el-dropdown-item>
-        <el-dropdown-item divided command="创建项目">
+        <el-dropdown-item v-for="item in projectList" :key="item.prjId" @click.native="checkPorject(item)">{{item.prjName}}</el-dropdown-item>
+        <el-dropdown-item divided @click.native="handleCreate">
           <svg-icon icon-class="add_1" />创建新项目
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-input placeholder="在个人项目中搜索" suffix-icon="el-icon-search" style="width: 200px;">
+    <el-input placeholder="在个人项目中搜索" class="search_input" suffix-icon="el-icon-search">
     </el-input>
 
-    <el-dialog title="创建项目" :visible.sync="createDialogVisible" width="50%">
+    <el-dialog title="创建项目" :visible.sync="createDialogVisible" class="createProjectDialog" width="30%" center>
       <div>
-        <p>图片</p>
+        <img src="../../../assets/images/createProject.png" alt="">
         <p>为不同的分析建立你的项目</p>
       </div>
       <el-form :model="projectForm">
-        <el-form-item>
-          <el-input v-model="projectForm.projectName" auto-complete="off" placeholder="项目名称"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="projectForm.projectDesc" type="textarea" auto-complete="off" placeholder="项目简介（选填）"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-select v-model="projectForm.dataTypeId" placeholder="数据类型" style="width: 100%;">
-            <el-option v-for="item in dataTypeIdOptions" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleCreate">完成并创建</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="handleCreateModule">从模板创建项目</el-button>
-        </el-form-item>
+        <el-input v-model="projectForm.projectName" auto-complete="off" placeholder="项目名称"/>
+        <el-input v-model="projectForm.projectDesc" type="textarea" auto-complete="off" placeholder="项目简介（选填）"/>
+        <el-select v-model="projectForm.dataTypeId" placeholder="数据类型" style="width: 100%;">
+          <el-option v-for="item in dataTypeIdOptions" :key="item.value" :label="item.label" :value="item.value"/>
+        </el-select>
+        <el-button type="primary" @click="handleCreate">完成并创建</el-button>
+        <el-button @click="handleCreateModule">从模板创建项目</el-button>
       </el-form>
     </el-dialog>
 
-    <el-dialog title="从模板中创建项目" :visible.sync="createModuleDialogVisible" width="70%">
+    <el-dialog title="从模板中创建项目" :visible.sync="createModuleDialogVisible" width="70%" center>
       <el-tabs tab-position="left" style="height: 200px;">
         <el-tab-pane v-for="item in tabPaneList" :key="item.field">
           <span slot="label"><i class="el-icon-date"></i>{{item.field}}</span>
@@ -79,20 +68,18 @@
       <el-button type="primary" @click="handleModuleCreate">完成创建</el-button>
     </el-dialog>
 
-    <el-dialog
-    title="执行模型"
-    :visible.sync="executeModuleDialogVisible"
-    width="50%">
-    <span>这是一段信息</span>
-    <span slot="footer" class="dialog-footer">
+    <el-dialog title="执行模型" :visible.sync="executeModuleDialogVisible" width="50%">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
         <el-button @click="executeModuleDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="executeModuleDialogVisible = false">确 定</el-button>
-    </span>
+      </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import projectSettings from '@/api/projectSettings'
 export default {
   name: 'headerLeft',
@@ -108,9 +95,7 @@ export default {
           value: 2
         }
       ],
-      prjName: '创建项目',
-      dropdownList: [],
-      createDialogVisible: false,
+      // createDialogVisible: false,
       createModuleDialogVisible: false,
       createModulePreviewDialogVisible: false,
       executeModuleDialogVisible: false,
@@ -124,31 +109,29 @@ export default {
       templateId: undefined
     }
   },
+  computed: {
+    ...mapGetters([
+      'projectChecked',
+      'projectList',
+      'createDialogVisible'
+    ])
+  },
   created() {
   },
   methods: {
-    handleUnfold(status) {
-      if (status) {
-        projectSettings.getProjectList().then(res => {
-          this.dropdownList = res
-        })
-      }
-    },
-    handleCommand(command) {
-      this.prjName = command
-      if (command === '创建项目') {
-        this.createDialogVisible = true
-      }
-    },
     handleCreate() {
       console.log(this.projectForm)
-      projectSettings.createProject(this.projectForm).then(res => {
-        console.log(res)
-        this.$message({
-          message: '项目创建成功',
-          type: 'success'
-        })
-      })
+      this.$store.commit('SET_createDialogVisible', true)
+      // projectSettings.createProject(this.projectForm).then(res => {
+      //   console.log(res)
+      //   this.$message({
+      //     message: '项目创建成功',
+      //     type: 'success'
+      //   })
+      // })
+    },
+    checkPorject(project) {
+      console.log(project)
     },
     handleCreateModule() {
       this.createModuleDialogVisible = true
@@ -186,6 +169,16 @@ export default {
 <style lang="scss">
   .headerLeft {
     flex: 1;
+    .el-dropdown {
+      position: relative;
+      top: 20%;
+      font-size: 1rem;
+      line-height: 1;
+      .el-dropdown-selfdefine {
+        color: #555555;
+        display: inline-block;
+      }
+    }
     .el-tab-pane {
       height: 150px;
       overflow-y: auto;
@@ -196,6 +189,58 @@ export default {
         padding: 20px;
         width: 100px;
         height: 100px;
+      }
+    }
+    .search_input {
+      position: relative;
+      top: 18%;
+      padding-left: 8.85%;
+      width: 60.42%;
+      input {
+        font-size: 0.75rem;
+        height: 2rem;
+        border-radius: 2rem;
+      }
+    }
+    .createProjectDialog {
+      .el-dialog__body {
+        padding: 10px;
+        & > div {
+          text-align: center;
+          img {
+            height: 3rem;
+            width: auto;
+            line-height: 1;
+          }
+          p {
+            font-size: 0.875rem;
+            margin: 0;
+            line-height: 1.75rem;
+          }
+        }
+        .el-form {
+          .el-input {
+            .el-input__inner {
+              font-size: 0.875rem;
+              line-height: 3em;
+              height: 3em;
+              margin: 0.5rem 0; 
+            }
+          }
+          .el-textarea {
+            .el-textarea__inner {
+              font-size: 0.875rem;
+              height: 6em;
+              margin: 0.5rem 0;
+            }
+          }
+          .el-button {
+            width: 100%;
+          }
+          .el-button+.el-button {
+            margin-left: 0;
+          }
+        }
       }
     }
   }

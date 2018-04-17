@@ -1,16 +1,24 @@
  //覆盖一些element-ui样式
-
- .el-container {
-   height: 100%;
- }
-
- .el-header {
-   padding: 0;
- }
-
- .el-main {
-   padding: 0;
- }
+ .el-dialog {
+  padding: 0;
+  .el-dialog__header {
+    padding: 0;
+    border-bottom: 1px solid #e8e3e3;
+    box-sizing: border-box;
+    .el-dialog__title {
+      font-size: 1rem;
+      line-height: 2.5;
+      display: inline-block;
+    }
+    .el-dialog__headerbtn {
+      top: 0px!important;
+      .el-dialog__close {
+        font-size: 1rem;
+        line-height: 2.5;
+      }
+    }
+  }
+}
 
  .el-dropdown {
    cursor: pointer;

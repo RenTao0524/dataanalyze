@@ -1,7 +1,8 @@
 <template>
   <div>
     <div>
-      <label>用户分群列表 | 更新时间：{{updateTime}} 总人数：{{totalNum}}</label>
+      <label @click="handleChangeRouter">用户分群列表</label>
+      <label>| 更新时间：{{updateTime}} 总人数：{{totalNum}}</label>
     
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
@@ -51,7 +52,7 @@
 import customerGroup from '@/api/customerGroup'
 
 export default {
-  name: 'mainPart',
+  name: 'customerTable',
   data() {
     return {
       totalNum: 4,
@@ -64,6 +65,16 @@ export default {
       console.log(res)
       this.tableData = res.customerList
     })
+  },
+  methods: {
+    handleChangeRouter() {
+      const list = window.location.href.split('/')
+      if (list.indexOf('customerGroup') !== -1) {
+        this.$router.push('customerTable')
+      } else {
+        this.$router.push('customerGroup')
+      }
+    }
   }
 }
 </script>

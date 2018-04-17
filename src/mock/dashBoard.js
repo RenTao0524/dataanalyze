@@ -1,4 +1,3 @@
-
 const getAnalysisFolderList = {
   'data': [
     {

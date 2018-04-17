@@ -11,10 +11,10 @@
         <el-dropdown-item divided>注销</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <img src="../../../assets/404_images/avatar.jpg" alt="头像">
-    <svg-icon icon-class="questionMark" />
-    <svg-icon icon-class="clock" />
-    <svg-icon @click.native="handelSetting" icon-class="settings" />
+    <img src="../../../assets/images/avatar.png" class="avatar" alt="头像">
+    <img src="../../../assets/images/help.png" alt="帮助图标">
+    <img src="../../../assets/images/messages.png" alt="消息提示图标">
+    <img src="../../../assets/images/settings.png" @click="handelSetting" alt="项目设置图标">
 
     <el-dialog title="项目设置" :visible.sync="dialogVisible" width="50%">
       <div>
@@ -76,7 +76,7 @@ export default {
     return {
       activeIndex: '',
       avatarUrl: '',
-      userName: '张三李四',
+      userName: '张三李四sssssss',
       dialogVisible: false,
       form: {
         projectName: '',
@@ -112,14 +112,32 @@ export default {
 <style lang="scss">
   .headerRight {
     flex: 1;
-    img {
-      height: 60px;
-      width: 60px;
+    & > img {
+      cursor: pointer;
+      float: right;
+      position: relative;
+      top: 34%;
+      height: 32%;
+      width: auto;
+      padding-left: 3%;
+    }
+    .avatar {
+      top: 16%;
+      height: 64%;
+      width: auto;
       border-radius: 50%;
     }
-    svg, img, .el-dropdown {
+    .el-dropdown {
       float: right;
-      cursor: pointer;
+      position: relative;
+      top: 37%;
+      padding-left: 3%;
+      font-size: 0.8125rem;
+      line-height: 1;
+      .el-dropdown-selfdefine {
+        color: #555555;
+        display: inline-block;
+      }
     }
   }
 </style>

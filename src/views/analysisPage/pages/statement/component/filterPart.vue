@@ -1,17 +1,20 @@
 <template>
   <div class="statement-filter">
-    <div>
-      <label>请添加指标</label>
-      <el-cascader :options="options" :show-all-levels="false" />
+    <div class='close'>
+      <span>收起<img src="../../../../../assets/images/close.png" alt=""></span>
+    </div>
+    <div class="indicator">
+      <span>请添加指标</span>
+      <el-cascader :options="indicator" v-model="selectedOptions" :show-all-levels="false" />
     </div>
     <div class="dimension-container">
       <label>需要查看的维度</label>
       <div class="dimension-filter">
         <div v-for="n in dimensionCount" :key="n">
           <span>按</span>
-          <el-cascader :options="options" :show-all-levels="false" />
+          <el-cascader :options="indicator" :show-all-levels="false" />
           <span>查看</span>
-          <svg-icon icon-class='add' @click.native="addDimension" />
+          <svg-icon icon-class='add' @click.native="addDimensionFilter" />
         </div>
       </div>
     </div>
@@ -28,45 +31,29 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'filterPart',
   data() {
     return {
       // 维度筛选条件计数
       dimensionCount: 1,
-      options: [
-        {
-          value: 'zhinan1',
-          label: '指南1',
-          children: [
-            {
-              value: 'zhinan5',
-              label: '指南5'
-            },
-            {
-              value: 'zhinan6',
-              label: '指南6'
-            }
-          ]
-        },
-        {
-          value: 'zhinan2',
-          label: '指南2'
-        },
-        {
-          value: 'zhinan3',
-          label: '指南3'
-        },
-        {
-          value: 'zhinan4',
-          label: '指南4'
-        }
-      ]
+      selectedOptions: []
     }
+  },
+  computed: {
+    ...mapGetters([
+      'indicator',
+      'edit_option_list'
+    ])
+  },
+  created() {
   },
   methods: {
     addDimensionFilter() {
       this.dimensionCount++
+      console.log(this.indicator)
     },
     addFilter() {
     }
@@ -76,11 +63,34 @@ export default {
 
 <style lang="scss">
   .statement-filter {
-    height: 300px;
     background-color: #ffffff;
     & > div {
       border-bottom: 1px solid #e8e3e3;
       box-sizing: border-box;
+    }
+    .close {
+      text-align: center;
+      cursor: pointer;
+      span {
+        display: inline-block;
+        color: #555555;
+        font-size: 0.75rem;
+        line-height: 2rem;
+      }
+    }
+    .indicator {
+      span {
+        display: inline-block;
+        color: #555555;
+        font-size: 0.75rem;
+        line-height: 2rem;
+      }
+      input {
+        display: inline-block;
+        color: #222222;
+        font-size: 0.75rem;
+        line-height: 2rem;
+      }
     }
     .dimension-container {
       display: flex;
